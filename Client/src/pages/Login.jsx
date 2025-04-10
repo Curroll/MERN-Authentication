@@ -15,31 +15,39 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onSubmitHandeler = async (e) => {
+const onSubmitHandler = async (e) => {
         try {
             e.preventDefault();
 
             axios.defaults.withCredentials = true;
-            if(state === 'Sign Up'){
-              const {data} =  await axios.post(backendUrl + '/api/auth/register', {name, email, password});
-              if(data.success){
+            if (state === 'Sign Up') {
+              const { data } = await axios.post(backendUrl + '/api/auth/register', { name, email, password });
+            
+              if (data.success) {
+                // Store token in localStorage
+                localStorage.setItem("token", data.token); // <-- assumes backend sends token
+            
                 setIsLoggedIn(true);
                 getUserData();
                 navigate('/');
-              }else{
+              } else {
                 toast.error(data.message);
               }
-            } else{
-                    const {data} =  await axios.post(backendUrl + '/api/auth/login', {email, password});
-                    if(data.success){
-                      setIsLoggedIn(true);
-                      getUserData();
-                      navigate('/');
-                    }else{
-                      toast.error(data.message);
-                    }
-                  } 
+            } else {
+              const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password });
             
+              if (data.success) {
+                // Store token in localStorage
+                localStorage.setItem("token", data.token);
+            
+                setIsLoggedIn(true);
+                getUserData();
+                navigate('/');
+              } else {
+                toast.error(data.message);
+              }
+            }
+                        
         } catch (error) {
             toast.error(error?.response?.data?.message || 'Something went wrong');
 
@@ -57,7 +65,7 @@ const Login = () => {
                 {state === 'Sign Up' ? 'Create Account' : 'Login'} 
             </h2>
             <p className='text-center text-sm mb-6'>{state === 'Sign Up' ? 'Create your account ' : 'Login to your account'}</p>
-            <form onSubmit={onSubmitHandeler}>
+            <form onSubmit={onSubmitHandler}>
                 {state === 'Sign Up' && (
                     <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#555A5C]'>
                     <img src={assets.person_icon} alt="" />
@@ -84,7 +92,7 @@ const Login = () => {
                     className='bg-transparent outline-none' type="password" placeholder='Password ' required  />
                 </div>
                 <p onClick={()=>navigate('/reset-password')} className='mb-4 text-indigo-500 cursor-pointer'>Forgot Password ?</p>
-                <button className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium'>{state}</button>
+                <button className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium hover:cursor-pointer'>{state}</button>
             </form>
             {state === 'Sign Up' ? (
                 <p className='text-gray-400 text-center text-xs mt-4'>Already have an Account ?{" "}

@@ -6,7 +6,7 @@ import EmailVerify from './pages/EmailVerify';
 import ResetPassword from './pages/ResetPassword';
 import Spinner from './components/Spinner';
 import { ToastContainer } from 'react-toastify';
-import { AppContent } from '../src/context/AppContext';
+import { AppContent } from './context/AppContext';
 
 const App = () => {
   const { isLoading } = useContext(AppContent);

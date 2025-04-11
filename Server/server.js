@@ -13,19 +13,18 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 
+
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
-
-
 const allowedOrigins = [
+  'http://localhost:5173',
   'https://mern-authentication-frontend-6mtq.onrender.com'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin like Postman
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -34,8 +33,6 @@ app.use(cors({
   },
   credentials: true,
 }));
-
-
 
 
 // Routes

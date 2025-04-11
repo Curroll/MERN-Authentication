@@ -20,7 +20,6 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
-  'http://localhost:5173',
   'https://mern-authentication-frontend-6mtq.onrender.com'
 ];
 

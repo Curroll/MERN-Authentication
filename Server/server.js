@@ -12,15 +12,32 @@ import userRouter from './routes/userRoutes.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
-const allowedOrigins = ['http://localhost:5173']
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
+
+
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://mern-authentication-frontend-6mtq.onrender.com'
+];
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    // allow requests with no origin like Postman
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
+
+
 
 // Routes
 app.get("/", (req, res) => {

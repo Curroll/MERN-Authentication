@@ -7,6 +7,7 @@ import ResetPassword from './pages/ResetPassword';
 import Spinner from './components/Spinner';
 import { ToastContainer } from 'react-toastify';
 import { AppContent } from './context/AppContext';
+// import Dashboard from './components/Dashboard';
 
 const App = () => {
   const { isLoading } = useContext(AppContent);
@@ -23,6 +24,8 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/email-verify' element={<EmailVerify />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        {/* <Route path='/dashboard' element={<Dashboard />} /> */}
+
       </Routes>
     </div>
   );

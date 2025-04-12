@@ -16,11 +16,8 @@ export const AppContentProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/user/data`);
-      if (data.success) {
-        setUserData(data.userData);
-      } else {
-        toast.error(data.message);
-      }
+      data.success ? setUserData(data.userData) : toast.error(data.message);
+      
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Failed to fetch user data."

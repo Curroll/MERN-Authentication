@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 
 
 const allowedOrigins = [
-  'http://localhost:5174',
+  'http://localhost:5173',
   'https://mern-authentication-frontend-6mtq.onrender.com'
 ];
 // Middlewares
